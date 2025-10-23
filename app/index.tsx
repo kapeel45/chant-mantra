@@ -25,7 +25,7 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <Text style={styles.title}>👆 Count on Tap</Text>
         <View style={styles.statusContainer}>
-          <Text style={[styles.statusText, { color: state.isRunning ? '#4CAF50' : '#f44336' }]}>
+          <Text style={[styles.statusText, { color: state.isRunning ? '#17c41dff' : '#f44336' }]}>
             {state.isRunning ? '● LIVE' : '⏸️ PAUSED'}
           </Text>
         </View>
@@ -46,7 +46,7 @@ export default function HomeScreen() {
 
       {/* Footer */}
       <View style={styles.footer}>
-        <Text style={styles.footerText}>Made by Kapil S. Shinde</Text>
+        <Text style={styles.footerText}>Made by Eeshan . S . Shinde</Text>
       </View>
     </View>
   );
@@ -82,11 +82,13 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   footer: {
+    backgroundColor: '#1976D2',
     padding: 15,
     alignItems: 'center',
   },
   footerText: {
     color: '#E3F2FD',
     fontSize: 12,
+    fontWeight: 'bold',
   },
 });
