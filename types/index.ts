@@ -3,6 +3,7 @@ export interface TapCounterState {
   isRunning: boolean;
   tapHistory: string[];
   milestoneInterval: number;
+  updateMilestoneInterval?: (interval: number) => void;
 }
 
 export interface SettingsProps {

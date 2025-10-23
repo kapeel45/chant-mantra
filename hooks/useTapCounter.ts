@@ -59,17 +59,18 @@ export const useTapCounter = () => {
     if (state.count > 0 && state.count % state.milestoneInterval === 0) {
       Vibration.vibrate([0, 500, 200, 500]);
       Alert.alert(
-        '🎉 Milestone Achieved!',
-        `You've tapped ${state.count} times! Keep going!`,
+       '🎉 Milestone Achieved!',
+        `You've tapped ${state.count} times!\nNext milestone: ${state.count + state.milestoneInterval}`,
         [{ text: 'Continue Tapping!' }]
       );
     }
-  }, [state.count]);
+  }, [state.count, state.milestoneInterval]);
 
   return {
     state,
     handleTap,
     resetCounter,
     toggleRunning,
+    updateMilestoneInterval
   };
 };

@@ -6,21 +6,32 @@ import {
   TouchableOpacity,
   TextInput,
   Alert,
+  ScrollView,
 } from 'react-native';
 import { StyleSheet } from 'react-native';
+import { TapCounterState } from '../types';
 
 interface Props {
   visible: boolean;
   onClose: () => void;
   onMilestoneChange: (interval: number) => void;
+  currentMilestone: number;
 }
 
 export const SettingsModal: React.FC<Props> = ({
   visible,
   onClose,
   onMilestoneChange,
+  currentMilestone,
 }) => {
   const [customValue, setCustomValue] = useState('');
+
+  const presetIntervals = [10, 25, 50, 100, 250, 500];
+
+  const handlePresetSelect = (interval: number) => {
+    onMilestoneChange(interval);
+    onClose();
+  };
 
   const handleCustomSubmit = () => {
     const value = parseInt(customValue);
@@ -45,8 +56,24 @@ export const SettingsModal: React.FC<Props> = ({
           <Text style={styles.title}>⚙️ Settings</Text>
           
           <Text style={styles.sectionTitle}>Milestone Interval</Text>
+          <Text style={styles.current}>Current: Every {currentMilestone} taps</Text>
 
-        
+          <ScrollView style={styles.presetsContainer}>
+            <Text style={styles.presetsTitle}>Quick Presets</Text>
+            {presetIntervals.map((interval) => (
+              <TouchableOpacity
+                key={interval}
+                style={[
+                  styles.presetButton,
+                  currentMilestone === interval && styles.activePreset,
+                ]}
+                onPress={() => handlePresetSelect(interval)}
+              >
+                <Text style={styles.presetText}>{interval}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+
           <View style={styles.customContainer}>
             <Text style={styles.sectionTitle}>Custom Interval</Text>
             <TextInput

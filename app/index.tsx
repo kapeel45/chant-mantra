@@ -11,7 +11,7 @@ import { TapHistory } from '../components/TapHistory';
 import { useTapCounter } from '../hooks/useTapCounter';
 
 export default function HomeScreen() {
-  const { state, handleTap, resetCounter, toggleRunning } = useTapCounter();
+  const { state, handleTap, resetCounter, toggleRunning, updateMilestoneInterval } = useTapCounter();
 
   return (
     <View 
@@ -25,10 +25,13 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <Text style={styles.title}>👆 Count on Tap</Text>
         <View style={styles.statusContainer}>
-          <Text style={[styles.statusText, { color: state.isRunning ? '#17c41dff' : '#f44336' }]}>
+          <Text style={[styles.statusText, { color: state.isRunning ? '#2be531ff' : '#f44336' }]}>
             {state.isRunning ? '● LIVE' : '⏸️ PAUSED'}
           </Text>
         </View>
+        <Text style={styles.milestoneText}>
+          Milestone: Every {state.milestoneInterval} taps
+        </Text>
       </View>
 
       {/* Counter Display */}
@@ -38,7 +41,8 @@ export default function HomeScreen() {
       <ControlButtons 
         state={state} 
         onPauseResume={toggleRunning} 
-        onReset={resetCounter} 
+        onReset={resetCounter}
+        onMilestoneChange={updateMilestoneInterval} // NEW
       />
 
       {/* Tap History */}
@@ -60,7 +64,7 @@ const styles = StyleSheet.create({
   header: {
     paddingTop: 50,
     paddingHorizontal: 20,
-    paddingBottom: 20,
+    paddingBottom: 10,
     backgroundColor: '#1976D2',
     alignItems: 'center',
   },
@@ -75,14 +79,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 15,
+    marginBottom: 5,
   },
   statusText: {
     fontSize: 12,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
+  milestoneText: {
+    fontSize: 12,
+    color: '#E3F2FD',
+  },
   footer: {
-    backgroundColor: '#1976D2',
     padding: 15,
     alignItems: 'center',
   },
